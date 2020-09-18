@@ -2,10 +2,11 @@
 
 ## User Stories
 1.Get the source code on to your machine via git.
+   
+   ```
+   git clone https://github.com/subhamyadav580/django_task.git && cd django_task
+   ```
 
-    ```shell
-    git clone https://github.com/subhamyadav580/django_task.git && cd django_task
-    ```
     
 2. Now run the virtual environment.
     ```
