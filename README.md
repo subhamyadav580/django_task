@@ -29,4 +29,4 @@
     python3 manage.py runserver
     ```
     
-6. That's it. Open web browser and hit the URL [http://127.0.0.1:8888](http://127.0.0.1:8888).
+6. That's it. Open web browser and hit the URL [http://127.0.0.1:8000](http://127.0.0.1:8000).
