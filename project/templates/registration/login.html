@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <h1 class="text-center">Listings</h1>
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Log in to your account</h4>
+            <form method="post">
+              {% csrf_token %}
+
+              <input type="hidden" name="next" value="None">
+
+              <div id="div_id_email" class="form-group"> <label for="email" class=" requiredField">
+                  Email<span class="asteriskField">*</span> </label>
+                <div class="">
+                  <input type="email" name="email" autofocus autocapitalize="none" autocomplete="email" maxlength="60"
+                    class="textinput textInput form-control" required id="email"> </div>
+              </div>
+              <div id="div_id_password" class="form-group"> <label for="id_password" class=" requiredField">
+                  Password<span class="asteriskField">*</span> </label>
+                <div class=""> <input type="password" name="password" autocomplete="current-password"
+                    class="textinput textInput form-control" required id="id_password"> </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            </form>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

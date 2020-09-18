@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+{% endblock style %}
+{% block content %}
+
+
+{% if profile %}
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3 col-sm-6">
+
+            <div class="card hovercard">
+                <div class="cardheader">
+
+                </div>
+                <div class="avatar">
+                    {% if  profile.picture %}
+                      
+                    <img alt="" src="{{profile.picture.url}}">
+                    {% else %}
+                    <img alt="" src="">
+
+                    {% endif %}
+                </div>
+                <div class="info">
+                    <div class="title">
+                        <a target="_blank" href="#">{{profile.first_name}}-{{profile.last_name}}</a>
+                    </div>
+                    <div class="desc">{{profile.age}}</div>
+                    <div class="desc">{{profile.uniqueID}}</div>
+                    <div class="desc">{{profile.username}}</div>
+                    <div class="desc">{{profile.email}}</div>
+
+                </div>
+            </div>
+
+        </div>
+
+	</div>
+</div>
+
+
+
+{% else %}
+
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3 col-sm-6">
+
+            <div class="card hovercard">
+                <div class="cardheader">
+
+                </div>
+                <div class="avatar">
+                    <img alt="" src="#">
+                </div>
+                <div class="info">
+                    <div class="title">
+                        <a target="_blank" href="#">Anonymous User</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+	</div>
+</div>
+{% endif %}
+
+{% endblock %}
