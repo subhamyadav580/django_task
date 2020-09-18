@@ -13,6 +13,7 @@ urlpatterns = [
 
     path('accounts/api/profile', views.profile, name='api_profile'),
     path('accounts/api/login', views.login_view, name='api_login'),
-    path("accounts/api/register", views.registration_view, name="api_register")
+    path("accounts/api/register", views.registration_view, name="api_register"),
+    path("accounts/api/refresh_token", views.refresh_token_view, name="refresh_token"),
 
 ]
