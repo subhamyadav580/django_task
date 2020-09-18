@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from accounts.models import User
-import uuid
 import string 
 import random 
 
@@ -21,7 +20,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'first_name', 'last_name', 'age', 'uniqueID', 'picture', 'password', 'password2']
+        fields = ['email', 'first_name', 'last_name', 'age', 'uniqueID', 'picture', 'password', 'password2']
 
         extra_kwargs = {
             'password': {'write_only': True}
@@ -30,7 +29,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def save(self):
         account = User(
             email = self.validated_data['email'],
-            username = self.validated_data['username'],
             first_name = self.validated_data['first_name'],
             last_name = self.validated_data['last_name'],
             age = self.validated_data['age'],
@@ -67,5 +65,5 @@ class RegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email',
+        fields = ['id', 'email',
                   'first_name', 'last_name', 'age', 'uniqueID', 'picture']

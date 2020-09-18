@@ -2,24 +2,22 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.contrib.auth import get_user_model
 from django.utils import timezone
+import string 
+import random 
 
+# Returns a random alphanumeric string of length 'length'
+def random_key(length):
+	key = ''
+	for i in range(length):
+		key += random.choice(string.ascii_lowercase + string.ascii_uppercase + string.digits)
+	return key
 
-
-
-
-
-
-def upload_location(instance, filename, *args, **kwargs):
-    file_path = 'accounts/{username}/{filename}'.format(
-        username=str(instance.username), filename=filename
-    )
-    return file_path
 
 class AccountManager(BaseUserManager):
     use_in_migrations = True
 
-    def _create_user(self, email, username, first_name, last_name, age ,password, **extra_fields):
-        values = [email, username, first_name, last_name, age]
+    def _create_user(self, email, first_name, last_name, age ,password, **extra_fields):
+        values = [email, first_name, last_name, age]
         field_value_map = dict(zip(self.model.REQUIRED_FIELDS, values))
         for field_name, value in field_value_map.items():
             if not value:
@@ -28,7 +26,6 @@ class AccountManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(
             email=email,
-            username=username,
             first_name=first_name,
             last_name=last_name,
             age=age,
@@ -38,26 +35,26 @@ class AccountManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user(self, email, username, first_name, last_name, age, password=None, **extra_fields):
+    def create_user(self, email, first_name, last_name, age, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
-        return self._create_user(email, username, first_name, last_name, age, password, **extra_fields)
+        return self._create_user(email, first_name, last_name, age, password, **extra_fields)
 
-    def create_superuser(self, email, username, first_name, last_name, age, password=None, **extra_fields):
+    def create_superuser(self, email, first_name, last_name, age, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
-
+        uniqueID = random_key(6)
+        extra_fields.setdefault('uniqueID', uniqueID)
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
 
-        return self._create_user(email, username, first_name, last_name, age, password, **extra_fields)
+        return self._create_user(email, first_name, last_name, age, password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
-    username = models.CharField(max_length=30, unique=True)
     first_name = models.CharField(null=True, max_length=50)
     last_name = models.CharField(null=True, max_length=50)
     age = models.CharField(max_length=100, null=True)
@@ -71,7 +68,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = AccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'age']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'age']
 
     def get_full_name(self):
-        return self.username
+        return self.email

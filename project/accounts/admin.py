@@ -4,23 +4,23 @@ from accounts.models import User
 
 class AccountAdmin(BaseUserAdmin):
 
-    list_display = ('email', 'username', 'first_name', 'last_name', 'age', 'uniqueID', 'is_staff',  'is_superuser')
+    list_display = ('email', 'first_name', 'last_name', 'age', 'uniqueID', 'is_staff',  'is_superuser')
     list_filter = ('is_superuser',)
 
     fieldsets = (
         (None, {'fields': ('email', 'is_staff', 'is_superuser', 'password')}),
-        ('Personal info', {'fields': ('username', 'first_name', 'last_name', 'age', 'uniqueID', 'picture')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'age', 'uniqueID', 'picture')}),
         ('Groups', {'fields': ('groups',)}),
         ('Permissions', {'fields': ('user_permissions',)}),
     )
     add_fieldsets = (
         (None, {'fields': ('email', 'is_staff', 'is_superuser', 'password1', 'password2')}),
-        ('Personal info', {'fields': ('username', 'first_name', 'last_name', 'age', 'uniqueID', 'picture')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'age', 'uniqueID', 'picture')}),
         ('Groups', {'fields': ('groups',)}),
         ('Permissions', {'fields': ('user_permissions',)}),
     )
 
-    search_fields = ('email', 'username')
+    search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
 
